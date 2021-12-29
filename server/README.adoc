@@ -8,3 +8,10 @@ Ayman Patel
 1. Postgresql
 2. GraphQL
 3. TypeORM
+
+
+== MikroORM
+ 
+`npx mikro-orm migration:create`
+
+Creates Migrations under `/migrations` based on `entities`
