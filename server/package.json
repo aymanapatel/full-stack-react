@@ -15,6 +15,7 @@
   "author": "Ayman Patel",
   "license": "ISC",
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "@types/node": "^17.0.5",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
@@ -31,7 +32,11 @@
     "@mikro-orm/core": "^4.5.10",
     "@mikro-orm/migrations": "^4.5.10",
     "@mikro-orm/postgresql": "^4.5.10",
-    "pg": "^8.7.1"
+    "apollo-server-express": "^3.5.0",
+    "express": "^4.17.2",
+    "graphql": "^15.3.0",
+    "pg": "^8.7.1",
+    "type-graphql": "^1.1.1"
   },
   "mikro-orm": {
     "useTsNode": true,
