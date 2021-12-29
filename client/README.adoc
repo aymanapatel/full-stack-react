@@ -1,0 +1,9 @@
+= Client
+Ayman Patel
+:toc: 
+
+== Tech stack
+1. React
+2. Next
+3. GraphQL
+ 
