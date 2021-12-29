@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { MikroORM } from "@mikro-orm/core";
 
 import { Post } from "./entities/Post";
@@ -8,6 +9,7 @@ import { buildSchema } from "type-graphql";
 import { GetResolver } from "./resolvers/get";
 
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { PostResolver } from "./resolvers/post";
 
 const main = async () => {
   const orm = await MikroORM.init(config);
@@ -30,9 +32,10 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [GetResolver],
+      resolvers: [GetResolver, PostResolver],
       validate: false,
     }),
+    context: () => ({ em: orm.em }), // TODO: Add comment
     // The GraphQL Playground plugin is not installed by default.
     plugins: [
       ApolloServerPluginLandingPageGraphQLPlayground({
