@@ -1,0 +1,10 @@
+= Server
+Ayman Patel
+:toc: 
+
+
+== Tech stack
+
+1. Postgresql
+2. GraphQL
+3. TypeORM
