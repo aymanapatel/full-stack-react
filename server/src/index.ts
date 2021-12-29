@@ -16,9 +16,9 @@ const main = async () => {
 
   orm.getMigrator().up();
 
-  const post = orm.em.create(Post, { title: "Ayman" });
-  console.log("------- ORM Insert Start-----------");
-  await orm.em.persistAndFlush(post);
+  // const post = orm.em.create(Post, { title: "Ayman" });
+  // console.log("------- ORM Insert Start-----------");
+  // await orm.em.persistAndFlush(post);
   //   console.log("------- Native Insert-----------");
   //   await orm.em.nativeInsert(Post, { title: "Ayman" });
   console.log("------- Insert done-----------");

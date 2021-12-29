@@ -15,3 +15,29 @@ Ayman Patel
 `npx mikro-orm migration:create`
 
 Creates Migrations under `/migrations` based on `entities`
+
+
+== GraphQL Query
+
+
+```
+mutation { 
+  createPost(title: "UPDATE from GraphQL") {
+    id
+    createdAt
+    updatedAt
+    title
+  }
+}
+mutation {
+  updatePost(id: 23,title: "UPDATE from GraphQL") {
+    id
+    createdAt
+    updatedAt
+    title
+  }
+}
+mutation {
+  deletePost(id: 4)
+}
+```
