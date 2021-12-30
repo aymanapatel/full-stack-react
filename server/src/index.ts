@@ -2,16 +2,23 @@ import "reflect-metadata";
 import "dotenv-safe/config";
 import { MikroORM } from "@mikro-orm/core";
 
-import { Post } from "./entities/Post";
+// import { Post } from "./entities/Post";
 import config from "./mikro-orm.config";
 import express from "express";
+
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+
+import session from "express-session";
+import connectRedis from "connect-redis";
+import Redis from "ioredis";
+
 import { GetResolver } from "./resolvers/get";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
+import { __prod__ } from "./constants";
+import { MyContext } from "./types";
 
 const main = async () => {
   console.log("-----------------", process.env.DATABASE_URL);
@@ -19,17 +26,37 @@ const main = async () => {
 
   orm.getMigrator().up();
 
-  // const post = orm.em.create(Post, { title: "Ayman" });
-  // console.log("------- ORM Insert Start-----------");
-  // await orm.em.persistAndFlush(post);
-  //   console.log("------- Native Insert-----------");
-  //   await orm.em.nativeInsert(Post, { title: "Ayman" });
-  console.log("------- Insert done-----------");
-  const posts = await orm.em.find(Post, {});
-  console.log(posts);
   console.log("------- Select done-----------");
 
   const app = express();
+
+  const RedisStore = connectRedis(session);
+
+  const redis = new Redis(process.env.REDIS_URL);
+
+  const value = await redis.get("key");
+
+  console.log("---Redis");
+  console.log("---Redis", value);
+
+  app.use(
+    session({
+      name: "qid", // Cookie name
+      store: new RedisStore({
+        client: redis,
+        disableTouch: true, // TODO
+      }),
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 25 * 365 * 10, // 10 years,
+        sameSite: "lax", // CSRF
+        httpOnly: true,
+        secure: __prod__, // cookie only works in https
+      },
+      saveUninitialized: false,
+      secret: "bghkjdlnhigorfkdg",
+      resave: false,
+    })
+  );
 
   console.log("-------GraphQL setup start-----------");
 
@@ -38,7 +65,7 @@ const main = async () => {
       resolvers: [GetResolver, PostResolver, UserResolver],
       validate: false,
     }),
-    context: () => ({ em: orm.em }), // TODO: Add comment
+    context: ({ req, res }): MyContext => ({ em: orm.em, req, res }), // TODO: Add comment
     // The GraphQL Playground plugin is not installed by default.
     plugins: [
       ApolloServerPluginLandingPageGraphQLPlayground({
