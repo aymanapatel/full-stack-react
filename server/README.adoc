@@ -111,3 +111,31 @@ mutation{
 == Sessions
 
 NOTE: To make `me` query work in GraphQL playground, set GraphQL Settings `  "request.credentials": "include",` 
+
+Sessions are being sent to Redis 
+
+Example in Redis:
+
+Key: 
+
+`sess:_9iqivBaXhLEUSM8PD3YFxsroVr_LLGI`
+
+Value: 
+
+```
+{"cookie":{"originalMaxAge":328500000000,"expires":"2032-05-28T09:40:49.357Z","secure":false,"httpOnly":true,"path":"/","sameSite":"lax"},"userId":13}
+```
+
+
+=== Sequence 
+
+1. `req.session.userId = user.id`
+
+2. {userId: 13} -> Sent to redis with key `sess:_9iqivBaXhLEUSM8PD3YFxsroVr_LLGI`
+
+3.Login: Express sets cookie with key: `qid`(set in config `session({name: "qid"//` and value: `_9iqivBaXhLEUSM8PD3YFxsroVr_LLGI`
+
+4. After login: When User makes request 
+signed(_9iqivBaXhLEUSM8PD3YFxsroVr_LLGI) [Signing key is `secret` configured] -> Server
+
+5. Make request to redis 
