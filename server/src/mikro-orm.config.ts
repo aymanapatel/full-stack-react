@@ -14,7 +14,7 @@ const config: Options = {
   dbName: "postgres",
   type: "postgresql",
   debug: !__prod__,
-  clientUrl: "<your-client-url>",
+  clientUrl: process.env.DATABASE_URL,
 };
 
 export default config;

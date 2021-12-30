@@ -10,6 +10,17 @@ Ayman Patel
 3. TypeORM
 
 
+== Environment Variables
+
+Libraries used for `env` management
+
+1. https://www.npmjs.com/package/dotenv-safe[dotenv-safe]
+   - Identical to `dotenv``, but ensures that all necessary environment variables are defined after reading from `.env`
+2. https://www.npmjs.com/package/gen-env[gen-env]
+  - auto generate .env template by scanning source code
+  - `gen-env-types .env -o src/env.d.ts -e .`: Creates type defn. in `src/env.d.ts`
+  - Can be used as `process.env.<your-key>`
+
 == MikroORM
  
 `npx mikro-orm migration:create`

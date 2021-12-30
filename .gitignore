@@ -102,4 +102,3 @@ dist
 
 # TernJS port file
 .tern-port
-server/src/mikro-orm.config.ts

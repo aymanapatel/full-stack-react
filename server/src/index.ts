@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "dotenv-safe/config";
 import { MikroORM } from "@mikro-orm/core";
 
 import { Post } from "./entities/Post";
@@ -12,6 +13,7 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-co
 import { PostResolver } from "./resolvers/post";
 
 const main = async () => {
+  console.log("-----------------", process.env.DATABASE_URL);
   const orm = await MikroORM.init(config);
 
   orm.getMigrator().up();
