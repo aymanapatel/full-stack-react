@@ -10,7 +10,8 @@
     "dev": "nodemon dist/index.js",
     "start": "node dist/index.js",
     "start2": "ts-node src/index.ts",
-    "dev2": "nodemon --exec ts-node src/index.ts"
+    "dev2": "nodemon --exec ts-node src/index.ts",
+    "create:migration": "mikro-orm migration:create"
   },
   "keywords": [],
   "author": "Ayman Patel",
@@ -35,6 +36,7 @@
     "@mikro-orm/migrations": "^4.5.10",
     "@mikro-orm/postgresql": "^4.5.10",
     "apollo-server-express": "^3.5.0",
+    "argon2": "^0.28.3",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.2",
     "graphql": "^15.3.0",

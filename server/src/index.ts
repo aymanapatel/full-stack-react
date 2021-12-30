@@ -7,10 +7,11 @@ import config from "./mikro-orm.config";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { GetResolver } from "./resolvers/get";
 
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { GetResolver } from "./resolvers/get";
 import { PostResolver } from "./resolvers/post";
+import { UserResolver } from "./resolvers/user";
 
 const main = async () => {
   console.log("-----------------", process.env.DATABASE_URL);
@@ -34,7 +35,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [GetResolver, PostResolver],
+      resolvers: [GetResolver, PostResolver, UserResolver],
       validate: false,
     }),
     context: () => ({ em: orm.em }), // TODO: Add comment

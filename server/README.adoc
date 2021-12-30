@@ -30,6 +30,7 @@ Creates Migrations under `/migrations` based on `entities`
 
 == GraphQL Query
 
+=== Post
 
 ```
 mutation { 
@@ -50,5 +51,38 @@ mutation {
 }
 mutation {
   deletePost(id: 4)
+}
+```
+
+=== User
+
+```
+mutation{
+  register(options: {username: "fefegr", password: "2fdkjrlsrdt"} ) {
+     user {
+      username
+      updatedAt
+      createdAt
+  } 
+    errors {
+      field
+      message
+    }
+  }
+}
+mutation{
+  login(options: {username: "fefer", password: "2fdkjrlsrt"} ) {
+    
+  errors{
+      field
+      message
+    }
+   user {
+    username
+    updatedAt
+    createdAt
+  } 
+    
+  }
 }
 ```

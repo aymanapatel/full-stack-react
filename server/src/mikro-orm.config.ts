@@ -2,6 +2,7 @@ import { Options } from "@mikro-orm/core";
 import path from "path";
 import { __prod__ } from "./constants";
 import { Post } from "./entities/Post";
+import { User } from "./entities/User";
 
 const config: Options = {
   migrations: {
@@ -10,7 +11,7 @@ const config: Options = {
     disableForeignKeys: false,
     dropTables: true,
   },
-  entities: [Post],
+  entities: [Post, User],
   dbName: "postgres",
   type: "postgresql",
   debug: !__prod__,
