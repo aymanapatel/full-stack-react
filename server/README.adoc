@@ -28,9 +28,30 @@ Libraries used for `env` management
 Creates Migrations under `/migrations` based on `entities`
 
 
-== GraphQL Query
+== GraphQL 
 
-=== Post
+== Code gen
+
+`npm run graphql-codegen` will spit out `graphql.schema.json` and type definitions `graphql.ts` under `src/generated`
+
+The npm command uses `codegen.yml`
+
+Libraries used: 
+
+```
+"graphql-codegen": "graphql-codegen --config codegen.yml"
+"@graphql-codegen/cli": "2.3.1",
+
+// Plugins
+    "@graphql-codegen/typescript": "2.4.2",
+    "@graphql-codegen/typescript-resolvers": "2.4.3",
+    "@graphql-codegen/introspection": "2.1.1"
+
+```
+
+=== Queries
+
+==== Posts
 
 ```
 mutation { 
@@ -54,7 +75,7 @@ mutation {
 }
 ```
 
-=== User
+==== User
 
 ```
 mutation{

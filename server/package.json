@@ -11,12 +11,14 @@
     "start": "node dist/index.js",
     "start2": "ts-node src/index.ts",
     "dev2": "nodemon --exec ts-node src/index.ts",
-    "create:migration": "mikro-orm migration:create"
+    "create:migration": "mikro-orm migration:create",
+    "graphql-codegen": "graphql-codegen --config codegen.yml"
   },
   "keywords": [],
   "author": "Ayman Patel",
   "license": "ISC",
   "devDependencies": {
+    "@graphql-codegen/cli": "2.3.1",
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.5",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
@@ -28,7 +30,10 @@
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
     "ts-node": "^10.4.0",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "@graphql-codegen/typescript": "2.4.2",
+    "@graphql-codegen/typescript-resolvers": "2.4.3",
+    "@graphql-codegen/introspection": "2.1.1"
   },
   "dependencies": {
     "@mikro-orm/cli": "^4.5.10",
