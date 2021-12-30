@@ -9,6 +9,7 @@ import {
   InputType,
   Field,
   ObjectType,
+  Query,
 } from "type-graphql";
 
 import argon2 from "argon2";
@@ -43,16 +44,35 @@ class UserResponse {
 @Resolver()
 export class UserResolver {
   /**
+   * 
+
+   * @param em - Entity Manger coming from context: () => ({ em: orm.em })
+  * @param req: Req with session
+  * @returns User: 
+   */
+  @Query(() => User, { nullable: true })
+  async me(@Ctx() { em, req }: MyContext) {
+    // Loggedin
+    if (!req.session.userId) {
+      return null;
+    }
+
+    const user = em.findOne(User, { id: req.session.userId });
+    return user;
+  }
+
+  /**
    * Register User
    * @param options : @InputType() UsernamePasswordInput
    * @param em - Entity Manger coming from context: () => ({ em: orm.em })
+   * @param req: Req with session
    * @returns @ObjectType() UserResponse
    */
 
   @Mutation(() => UserResponse)
   async register(
     @Arg("options") options: UsernamePasswordInput,
-    @Ctx() { em }: MyContext
+    @Ctx() { em, req }: MyContext
   ): Promise<UserResponse> {
     const hashedPassword = await argon2.hash(options.password);
 
@@ -109,6 +129,8 @@ export class UserResolver {
       }
     }
 
+    req.session.userId = user.id;
+
     return {
       user,
     };
@@ -118,6 +140,7 @@ export class UserResolver {
    * Login
    * @param options @InputType() UsernamePasswordInput
    * @param em - Entity Manger coming from context: () => ({ em: orm.em })
+   * @param req: Req with session
    * @returns @ObjectType() UserResponse
    */
   @Mutation(() => UserResponse)
@@ -155,7 +178,6 @@ export class UserResolver {
       };
     }
 
-    console.log(req);
     req.session.userId = user.id;
 
     return { user };

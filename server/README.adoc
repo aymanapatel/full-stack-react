@@ -107,3 +107,7 @@ mutation{
   }
 }
 ```
+
+== Sessions
+
+NOTE: To make `me` query work in GraphQL playground, set GraphQL Settings `  "request.credentials": "include",` 
